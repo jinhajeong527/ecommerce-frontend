@@ -27,6 +27,9 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictPropertyInitialization": false
+    //Property '...' has no initializer and is not definitely assigned in the constructor
+    //이 에러 때문에 추가한 configuration
   }
 }
