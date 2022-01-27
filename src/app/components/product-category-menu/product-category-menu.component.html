@@ -1,0 +1,12 @@
+<div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+            <li *ngFor="let tempProductCategory of productCategories">
+                <!--active-link는 styles.css에 있는 커스텀 CSS 이다.-->
+                <!--라우터 링크에 카테고리 이름도 추가해준다.-->
+                <a routerLink="/category/{{ tempProductCategory.id }}/{{tempProductCategory.categoryName}}" routeLinkActive="active-link">
+                    {{ tempProductCategory.categoryName }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
