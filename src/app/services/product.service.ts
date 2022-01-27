@@ -9,6 +9,8 @@ import { map } from 'rxjs';//short for reactive javascript
 })
 export class ProductService {
   //지금은 스프링부트 백엔드 하드코딩 해주지만 나중엔 변경할 것이다.
+  // ?size=100 이렇게 불러오는 데이터 수 정할 수 있지만
+  //현재는 이렇게 두고 나중에 페이지네이션 기능 추가할 것.
   private baseUrl ='http://localhost:8181/api/products';
 
   constructor(private httpClient: HttpClient) { }
