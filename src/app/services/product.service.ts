@@ -15,14 +15,18 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductList(): Observable<Product[]> {
-    //observable 리턴한다.
+  getProductList(theCategoryId: number): Observable<Product[]> {
+    // observable 리턴한다.
     // 스프링 데이터 레스트로 부터의 제이슨 데이타를 Product array와 맵핑한다.
-    return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
+    //카테고리 아이디베 기반하여 유알엘 빌드해야 한다.
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+
+
+    return this.httpClient.get<GetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)
       //리스폰스는 제이슨 파일 통째로 온 그 형식 전부를 생각하면 되고
       // 거기서 _embedded.products 이렇게 타고 들어가서 제품 리스트만 얻어온다.
-    )
+    );
   }
 }
 

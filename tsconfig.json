@@ -28,8 +28,9 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
     //Property '...' has no initializer and is not definitely assigned in the constructor
     //이 에러 때문에 추가한 configuration
+    "strictNullChecks": false//null값일지 모른다고 컴파일 실패해서 추가해준 설정이다.
   }
 }
