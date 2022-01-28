@@ -7,8 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { Routes, RouterModule} from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
+  //키워드로 제품 검색하기
+  { path: 'search/:keyword', component: ProductListComponent },
   //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
   { path: 'category/:id/:name', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },
@@ -21,7 +24,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchComponent
+    
   ],
   imports: [
     RouterModule.forRoot(routes),

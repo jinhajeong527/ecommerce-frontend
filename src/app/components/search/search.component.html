@@ -1,0 +1,10 @@
+<div class="form-header">
+    <input #myInput type="text" 
+           placeholder="Search for data ..."
+           class="au-input au-input-xl"
+           (keyup.enter)="doSearch(myInput.value)" /><!--name요소는 지웠다-->
+
+    <button (click)="doSearch(myInput.value)" class="au-btn-submit"><!--type요소 지웠다.-->
+        Search
+    </button>
+</div>

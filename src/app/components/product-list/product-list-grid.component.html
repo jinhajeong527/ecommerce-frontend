@@ -13,6 +13,15 @@
                         <a href="#" class="primary-btn">Add to cart</a>
                     </div>
                 </div>
+                <!-- if products empty then display a message -->
+                <!-- ?를 넣은 이유는? Safe navigation operator.
+                    property paths에 있는 Null이나 Undefiend values로 부터의 가드 역할.
+                    즉 길이가 0이거나 널, 혹은 언디파인드일 때, 밑에 문구가 보일 것.
+                -->
+                <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                    No products found for given keyword.
+                </div>
+
             </div>
         </div>
     </div>
