@@ -9,8 +9,6 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root'
 })
 export class ProductService {
-  
-  
   //지금은 스프링부트 백엔드 하드코딩 해주지만 나중엔 변경할 것이다.
   // ?size=100 이렇게 불러오는 데이터 수 정할 수 있지만
   //현재는 이렇게 두고 나중에 페이지네이션 기능 추가할 것.
@@ -18,6 +16,13 @@ export class ProductService {
   private categoryUrl =' http://localhost:8181/api/product-category';
 
   constructor(private httpClient: HttpClient) { }
+
+  getProduct(theProductId: number): Observable<Product> { 
+    //제품 아이디에 기반하여 URL을 빌드해야 한다.
+    const productUrl = `${this.baseUrl}/${theProductId}`;
+    return this.httpClient.get<Product>(productUrl);
+  }
+
   //이거는 Observable을 리턴한다는 것에 주의하자.
   // 스프링 데이터 레스트로 부터의 제이슨 데이타를 Product array와 맵핑한다.
   getProductList(theCategoryId: number): Observable<Product[]> {

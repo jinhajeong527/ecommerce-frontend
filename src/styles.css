@@ -719,9 +719,18 @@ table.table.table-bordered th{
     font-weight:800;
     color:#0da8e4
 }
+/*상세보기*/
 .detail-section{
     margin-top:60px
 }
+/*디테일 이미지 보여주길 원하는 크기를 설정한다. */
+.detail-img{
+    width: 30%;
+}
+
+
+
+
 /**/
 
 /* 
