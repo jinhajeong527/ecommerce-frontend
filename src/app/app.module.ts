@@ -10,12 +10,16 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 const routes: Routes = [
+   //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
+  { path: 'category/:id/:name', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   //키워드로 제품 검색하기
   { path: 'search/:keyword', component: ProductListComponent },
-  //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
-  { path: 'category/:id/:name', component: ProductListComponent },
+ 
+ 
   { path: 'category', component: ProductListComponent },
   { path: 'products', component: ProductListComponent },
   { path: '', redirectTo:'/products', pathMatch: 'full'},
@@ -29,12 +33,12 @@ const routes: Routes = [
     ProductCategoryMenuComponent,
     SearchComponent,
     ProductDetailsComponent
-    
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes),//**나중에 한번더 살펴보기
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule//ng-bootstrap
   ],
   providers: [ProductService],//can inject that given service by doing so
   bootstrap: [AppComponent]

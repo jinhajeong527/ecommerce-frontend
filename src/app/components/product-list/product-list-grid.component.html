@@ -30,6 +30,40 @@
                 </div>
 
             </div>
+            <!-- begin footer -->
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-me-9" style="padding-left: 30%">
+                                <ngb-pagination [(page)]="thePageNumber"
+                                                [pageSize]="thePageSize"
+                                                [collectionSize]="theTotalElements"
+                                                (pageChange)="listProducts()"
+                                                [boundaryLinks]="true"
+                                                [maxSize]="5">
+                                </ngb-pagination>
+                            </div>
+                            <div class="col-md-3 mt-2" style="text-align: right;">
+                                <span calss="mr-2">Page Size</span>
+                                <!--$event는 HTML element 타입이고, 어떤 html element든 대변할 수.
+                                그렇기에 value 프로퍼티가 항상 $event.target 안에 존재하는 것이 보장되는 것은 아니다.
+                                새로운 앵귤러 프로젝트는 fullTemplateTypeCheck가 기본으로 true이기 때문에 컴파일러 에러가 발생할 수 있다.-->
+                                <select (change)="updatePageSize($any($event.target).value)">
+                                    <option>2</option>
+                                    <option selected="true">5</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end footer -->
         </div>
     </div>
 </div>
