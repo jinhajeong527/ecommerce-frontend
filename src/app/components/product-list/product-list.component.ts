@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductListComponent implements OnInit {
   
-  products: Product[] =[];
+  products: Product[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   currentCategoryName: string ='Books';//추가
@@ -26,9 +28,11 @@ export class ProductListComponent implements OnInit {
   
   //ProductService inject 
   constructor(private productService: ProductService,
-              private route: ActivatedRoute//useful for accessing route parameters
+              private cartService: CartService,
+              private route: ActivatedRoute
+              //useful for accessing route parameters
               //프로덕트 리스트 컴포넌트에 라우트 심어준다.
-    ) { }
+    ) {}
 
   ngOnInit(): void {//시작할 때, 라우트가 listProduct 구독하도록 한다.
     this.route.paramMap.subscribe(() =>{
@@ -114,6 +118,14 @@ export class ProductListComponent implements OnInit {
     this.thePageSize = pageSize;
     this.thePageNumber = 1;//reset
     this.listProducts();
+  }
+  //쇼핑 카트에 추가하기
+  addToCart(theProduct: Product) {
+    
+    console.log(`Adding to cart: ${theProduct.unitPrice}, ${theProduct.name}`);
+
+    const theCartItem = new CartItem(theProduct);//애드 투 카트 했을 때 보내졌을 프로덕트에 기반하여 카트 아이템 객체 새로 만든다.
+    this.cartService.addToCart(theCartItem);//카트 서비스 인젝트 해야 한다.
   }
 
 }

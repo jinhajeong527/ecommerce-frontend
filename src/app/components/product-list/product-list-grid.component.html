@@ -16,8 +16,9 @@
                         </a>
                        
 
-                        <div class="price">{{ tempProduct.unitPrice }}</div>
-                        <a href="#" class="primary-btn">Add to cart</a>
+                        <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
+                        <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
+                        <!--버튼에 부트스트랩 스타일 추가했다.-->
                     </div>
                 </div>
                 <!-- if products empty then display a message -->

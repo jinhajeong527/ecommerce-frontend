@@ -1,0 +1,74 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { CartItem } from '../common/cart-item';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CartService {
+
+  cartItems: CartItem[] = [];
+  //서브젝트는 오브저버블의 섭클래스이며, 우리 코드에서 이벤트 퍼블리쉬를 위해 사용할 수 있다.
+  //모든 섭스크라이버들에게 이벤트가 보내질 것.
+  totalPrice: Subject<number> = new Subject<number>();
+  totalQuantity: Subject<number> = new Subject<number>();
+
+  constructor() {}
+
+  addToCart(theCartItem: CartItem){
+    
+    //이미 카트에 선택한 아이템이 있는지를 체크한다.
+    let alreadyExistsInCart: boolean = false;
+    let existingCartItem: CartItem = undefined;
+
+    if(this.cartItems.length > 0){
+    //아이템 아이디에 기반하여 아이템이 있는지 찾는다.
+    for(let tempCartItem of this.cartItems){
+      if(tempCartItem.id === theCartItem.id){
+        existingCartItem = tempCartItem;
+        break;//break out of the loop
+      }
+    }
+     //아이템 찾았는지 체크한다. (길이 0 아니고, 언디파인이 아닐 때 true)
+     alreadyExistsInCart = (existingCartItem != undefined);
+    }
+    if(alreadyExistsInCart) {
+      //퀀티티를 늘려준다.
+      existingCartItem.quantity++;
+    } else{
+      //그게 아니라면 그냥 배열에 추가시키면 된다.
+      this.cartItems.push(theCartItem);
+    }
+
+    //compute cart total price and total quantity
+    this.computeCartTotals();
+  }
+
+  computeCartTotals() {
+    let totalPriceValue: number =0;
+    let totalQuantityValue: number = 0;
+
+    for(let currentCartItem of this.cartItems){
+      totalPriceValue += currentCartItem.unitPrice * currentCartItem.quantity;
+      totalQuantityValue += currentCartItem.quantity;
+    }
+
+    //publish the new value ...all subscribers will receive the new data
+    //next 각각 마다 이벤트 발행하므로 여기서 총 두개의 이벤트를 발행하게 되는 것이다 for totalPrice, totalQuantity
+    this.totalPrice.next(totalPriceValue);
+    this.totalQuantity.next(totalQuantityValue);
+
+    //log cart data just for debugging purposes
+    this.logCartData(totalPriceValue, totalQuantityValue);
+  }
+  logCartData(totalPriceValue: number, totalQuantityValue: number) {
+    console.log(`Contents of the cart`);
+    for(let tempCartItem of this.cartItems) {
+      const subTotalPrice = tempCartItem.quantity *  tempCartItem.unitPrice;
+      console.log(`name: ${tempCartItem.name}, quantity=${tempCartItem.quantity}, unitPrice=${tempCartItem.unitPrice}, subTotalPrice=${subTotalPrice}`);
+    }
+
+    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);//only show two digits after decimal
+    console.log('----------');
+  }
+}

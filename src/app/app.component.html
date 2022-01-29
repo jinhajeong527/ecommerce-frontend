@@ -21,12 +21,9 @@
       <div class="container-fluid">
         <div class="header-wrap">
           <app-search></app-search>
-          <div class="cart-area d-n">
-            <a href="shopping-detail.html">
-              <div class="total">19.22 <span> 2</span> </div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              <!--쇼핑카트에 폰트어썸 사용함.-->
-            </a>
-          </div>
+
+          <app-cart-status></app-cart-status>
+
         </div>
         <div class="account-wrap"></div>
       </div>
@@ -35,7 +32,9 @@
   <!-- END HEADER DESKTOP-->
   <!-- MAIN CONTENT-->
   <router-outlet></router-outlet>
-  <!--placeholder역할. 라우트에 기반하여 컴포넌트 렌더링 해준다.-->
+  <!--placeholder역할. 라우트에 기반하여 컴포넌트 렌더링 해준다.
+  메인 컨텐트 위치에 들어가는 경우는 기존 셀렉터대신 라우터 아울렛 사용하는 것으로 추정. 바뀔 수 있기 때문이다.
+  -->
   <!-- <app-product-list></app-product-list> -->
 </div>
 <!--</div> 이건 어디서 나온건지 모르겠음..-->
