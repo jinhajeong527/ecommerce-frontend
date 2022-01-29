@@ -21,21 +21,17 @@ export class CartService {
     let alreadyExistsInCart: boolean = false;
     let existingCartItem: CartItem = undefined;
 
-    if(this.cartItems.length > 0){
-    //아이템 아이디에 기반하여 아이템이 있는지 찾는다.
-    for(let tempCartItem of this.cartItems){
-      if(tempCartItem.id === theCartItem.id){
-        existingCartItem = tempCartItem;
-        break;//break out of the loop
-      }
-    }
+    if(this.cartItems.length > 0) {
+      //첫번째로 찾은거 리턴하고, 못찾으면 undefined 리턴한다.
+      existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id);
+
      //아이템 찾았는지 체크한다. (길이 0 아니고, 언디파인이 아닐 때 true)
      alreadyExistsInCart = (existingCartItem != undefined);
     }
     if(alreadyExistsInCart) {
       //퀀티티를 늘려준다.
       existingCartItem.quantity++;
-    } else{
+    } else {
       //그게 아니라면 그냥 배열에 추가시키면 된다.
       this.cartItems.push(theCartItem);
     }
