@@ -37,5 +37,15 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.computeCartTotals();
 
   }
+  //플러스 버튼 누르면 개수가 추가되도록 하는 메서드.
+  incrementQuantity(theCartItem: CartItem) {
+      this.cartService.addToCart(theCartItem);
+  }
+  decrementQuantity(theCartItem: CartItem) {
+      this.cartService.decrementQuantity(theCartItem);
+  }
+  remove(theCartItem: CartItem){
+    this.cartService.remove(theCartItem);
+  }
 
 }
