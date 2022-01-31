@@ -20,11 +20,17 @@ export class CartService {
     //이미 카트에 선택한 아이템이 있는지를 체크한다.
     let alreadyExistsInCart: boolean = false;
     let existingCartItem: CartItem = undefined;
+    //Type 'undefined' is not assignable to type 'CartItem'.
+    //You can now use the non-null assertion operator
+    //It tells TypeScript that even though something looks like it could be null, 
+    //it can trust you that it's not: ! 붙여주기..
 
     if(this.cartItems.length > 0) {
       //첫번째로 찾은거 리턴하고, 못찾으면 undefined 리턴한다.
       existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id);
-
+      /*find(): Returns the value of the first element in the array 
+        where predicate is true, and undefined otherwise.
+      */
      //아이템 찾았는지 체크한다. (길이 0 아니고, 언디파인이 아닐 때 true)
      alreadyExistsInCart = (existingCartItem != undefined);
     }
@@ -43,7 +49,7 @@ export class CartService {
   computeCartTotals() {
     let totalPriceValue: number =0;
     let totalQuantityValue: number = 0;
-
+    //for문 사용해서 다 합친다.
     for(let currentCartItem of this.cartItems){
       totalPriceValue += currentCartItem.unitPrice * currentCartItem.quantity;
       totalQuantityValue += currentCartItem.quantity;
