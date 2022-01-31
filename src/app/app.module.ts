@@ -17,6 +17,8 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 const routes: Routes = [
    //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
   { path: 'category/:id/:name', component: ProductListComponent },
+  // 카트 디테일
+  { path: 'cart-details', component: CartDetailsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   //키워드로 제품 검색하기
   { path: 'search/:keyword', component: ProductListComponent },

@@ -1,6 +1,6 @@
 <div class="cart-area d-n">
-    <a href="shopping-detail.html">
-        <div class="total">{{ totalPrice | currency : 'USD' }}
+    <a routerLink="/cart-details">
+        <div class="total">{{ totalPrice | currency : 'USD' }}<!--카트서비스가 발행한 값 구독 함.-->
             <span>{{ totalQuantity }}</span> 
         </div> 
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
