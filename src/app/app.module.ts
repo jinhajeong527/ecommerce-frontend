@@ -13,10 +13,14 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
    //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
   { path: 'category/:id/:name', component: ProductListComponent },
+  // 체크 아웃 폼
+  { path: 'checkout', component: CheckoutComponent },
   // 카트 디테일
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
@@ -38,13 +42,15 @@ const routes: Routes = [
     SearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     RouterModule.forRoot(routes),//**나중에 한번더 살펴보기
     BrowserModule,
     HttpClientModule,
-    NgbModule//ng-bootstrap
+    NgbModule,//ng-bootstrap
+    ReactiveFormsModule
   ],
   providers: [ProductService],//can inject that given service by doing so
   bootstrap: [AppComponent]

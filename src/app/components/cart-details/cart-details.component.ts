@@ -32,7 +32,7 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.totalQuantity.subscribe(
       data => this.totalQuantity = data
     );
-
+  
     //카트 totalPrice, totalQuantity를 계산한다.
     this.cartService.computeCartTotals();
 
