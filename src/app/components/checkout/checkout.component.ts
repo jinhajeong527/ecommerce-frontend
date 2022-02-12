@@ -75,12 +75,30 @@ export class CheckoutComponent implements OnInit {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
   }
+ 
 
   onSubmit(){
     console.log("handling the submit button");
     console.log(this.checkoutFormGroup.get('customer')?.value);
     console.log(this.checkoutFormGroup.get('customer')?.value.email);
   }
-  
+  handleMonthsAndYears(){
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = Number(creditCardFormGroup?.value.expirationYear);
 
+    //선택된 년도가 현재 년도와 일치하는지를 확인한다.
+    let startMonth: number;
+    if(currentYear===selectedYear){
+      startMonth = new Date().getMonth() +1;//everything is zero based for month
+    }else{
+      startMonth = 1;
+    }
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        console.log("Retrived credit card months: "+ JSON.stringify(data));
+        this.creditCardMonths = data;
+      }
+    );
+  }
 }
