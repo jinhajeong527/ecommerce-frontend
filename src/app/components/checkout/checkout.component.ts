@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CartService } from 'src/app/services/cart.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 import { MyShopValidators } from 'src/app/validators/my-shop-validators';
 
@@ -25,9 +26,13 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[]=[];
 
   constructor(private formBuilder: FormBuilder,
-              private luv2ShopFormService: Luv2ShopFormService) { }//form builder injection
+              private luv2ShopFormService: Luv2ShopFormService,
+              private cartService: CartService) { }//form builder injection
 
   ngOnInit(): void {
+
+    this.riviewCartDetails();
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', 
@@ -96,6 +101,18 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
+
+  riviewCartDetails() {
+    //cartService.totalQuantity 구독
+    this.cartService.totalQuantity.subscribe(
+      totalQuantity => this.totalQuantity = totalQuantity
+    );
+    //cartService.totalPrice 구독
+    this.cartService.totalPrice.subscribe(
+      totalPrice => this.totalPrice = totalPrice
+    );
+  }
+
   //이 메서드들을 html 템플릿에서 form control에 접근하기 위해서 실제로 사용하게 된다. 
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }

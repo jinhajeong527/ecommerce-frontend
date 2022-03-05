@@ -8,6 +8,7 @@
                     <h3>Customer</h3>
                     <div class="row">
                         <div class="col-md-2"><label>FirstName</label></div>
+                        <div class="col-md-9">
                         <div class="input-space">
                             <!--데이터 바인딩 지원하기 때문에 이렇게 할 수 있는 것이다.-->
                             <input formControlName="firstName" type="text">
@@ -20,9 +21,11 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2"><label>LastName</label></div>
+                        <div class="col-md-9">
                         <div class="input-space">
                             <input formControlName="lastName" type="text">
 
@@ -35,9 +38,11 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2"><label>Email</label></div>
+                        <div class="col-md-9">
                         <div class="input-space">
                             <input formControlName="email" type="text">
                             <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger mt-1">
@@ -48,6 +53,7 @@
                                     Email must be a valid email address format
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
 
 @Injectable({
@@ -10,8 +10,8 @@ export class CartService {
   cartItems: CartItem[] = [];
   //서브젝트는 오브저버블의 섭클래스이며, 우리 코드에서 이벤트 퍼블리쉬를 위해 사용할 수 있다.
   //모든 섭스크라이버들에게 이벤트가 보내질 것.
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  totalPrice: Subject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() {}
 
