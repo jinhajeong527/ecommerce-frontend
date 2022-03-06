@@ -3,8 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 import { MyShopValidators } from 'src/app/validators/my-shop-validators';
+import { Router } from '@angular/router';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +18,8 @@ import { MyShopValidators } from 'src/app/validators/my-shop-validators';
 })
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup;//collection of form control 및 form element or other groups
-
+  
+  //CartService 에서 받아오는 정보
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -25,9 +31,11 @@ export class CheckoutComponent implements OnInit {
   creditCardYears: number[] =[];
   creditCardMonths: number[]=[];
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,//form builder injection
               private luv2ShopFormService: Luv2ShopFormService,
-              private cartService: CartService) { }//form builder injection
+              private cartService: CartService, //CartService에서 발행하는 최신의 토탈 price와 quantity 정보 받아오기 위함
+              private checkoutService: CheckoutService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -154,12 +162,83 @@ export class CheckoutComponent implements OnInit {
 
     if(this.checkoutFormGroup.invalid){//form validation이 invalid 하면
       this.checkoutFormGroup.markAllAsTouched();
+      return;//invalid하면 이 메서드의 다른 코드들 실행시키지 않겠다는 뜻.
     }
-    console.log(this.checkoutFormGroup.get('customer')?.value);
-    console.log(this.checkoutFormGroup.get('customer')?.value.email);
-    console.log("shipping address country is "+this.checkoutFormGroup.get('shippingAddress')?.value.country.name);
-    console.log("shipping address state is "+this.checkoutFormGroup.get('shippingAddress')?.value.state.name);
+
+    //set up order
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    //get cart items
+    const cartItems = this.cartService.cartItems;
+
+    //create orderItems from cartItems
+    // -longway(Empty Array 만든뒤에 Looping 하는 것)
+    // let orderItems: OrderItem[] = [];
+    // for(let i=0; i < cartItems.length; i++) {
+    //   orderItems[i] = new OrderItem(cartItems[i]);
+    // }
+
+    //- shortway of doing the same thing
+    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
+
+    //set up purchase
+    let purchase = new Purchase();
+
+    // populate purchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
+    // populate purchase - shipping address
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    purchase.shippingAddress.state = shippingState.name;
+    purchase.shippingAddress.country = shippingCountry.name;
+
+    // populate purchase - billing address
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingCountry.name;
+
+    // populate purchase - order and orderItems
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+
+    // call REST API via the CheckoutService
+    this.checkoutService.placeOrder(purchase).subscribe(
+      {
+        //성공했을 때
+        next: response => {
+          alert(`Your order has been received. Order tracking number: ${response.orderTrackingNumber}`);
+        
+        //카트 비우기
+        this.resetCart();
+        },
+        //에러 발생했을 때
+        error: err => {
+          alert(`There was an error: ${err.message}`);
+        }
+      }
+    );
+
   }
+  //주문 완료 후에 카트 리셋하기
+  resetCart() {
+    //cart data reset
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset the form 
+    this.checkoutFormGroup.reset();
+
+    // navigate back to the products page
+    this.router.navigateByUrl("/products");
+  }
+
   handleMonthsAndYears(){
     const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
     const currentYear: number = new Date().getFullYear();
