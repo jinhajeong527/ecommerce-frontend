@@ -1,27 +1,28 @@
-# AngularEcommerce
-
+# WebEcommerce
+***
+유데미의 https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/ 강좌를 보고 진행한 
+앵귤러 CLI 클론 프론트 엔드 코딩 프로젝트입니다.
+스프링부트 백엔드와 REST API를 통해 연결하였습니다.
+프로젝트 진행하면서 정리한 내용은 https://www.notion.so/augular-spring-webcommerce-course-ea1968e7559b4bfa8e86c820e5d7a5e2
+에서 확인하실 수 있습니다.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
-## Development server
+## 개발 기간
+***
+2022.01-2022-03
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 사용 기술
+***
+* Angular
+* Typescript
 
-## Code scaffolding
+## 기능
+***
+* Showing Product List By Category(Books, Coffee Mugs, Mouse Pads, Luggage Tags)
+* Pagination Using Angular
+* Searching Product By Keyword
+* Adding Products To Shopping Cart
+* Shpping Cart Form Validation
+* Shopping Cart Checkout
+* User Login/Logout Using Okta
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
