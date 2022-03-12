@@ -31,7 +31,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ##구현화면
 
 
-https://user-images.githubusercontent.com/77036027/158021187-33a01a4d-cf44-4be1-9ada-dc84e31cf37d.mp4
+<img src="https://user-images.githubusercontent.com/77036027/158021187-33a01a4d-cf44-4be1-9ada-dc84e31cf37d.mp4">
+
+
 
 
 
