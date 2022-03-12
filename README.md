@@ -1,5 +1,5 @@
 # WebEcommerce
-***
+
 유데미의 https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/ 강좌를 보고 진행한 
 앵귤러 CLI 클론 프론트 엔드 코딩 프로젝트입니다.
 스프링부트 백엔드와 REST API를 통해 연결하였습니다.
@@ -8,16 +8,16 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
 ## 개발 기간
-***
+
 2022.01-2022-03
 
 ## 사용 기술
-***
+
 * Angular
 * Typescript
 
 ## 기능
-***
+
 * Showing Product List By Category(Books, Coffee Mugs, Mouse Pads, Luggage Tags)
 * Pagination Using Angular
 * Searching Product By Keyword
