@@ -28,10 +28,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Shopping Cart Checkout
 * User Login/Logout Using Okta
 
-##구현화면
+## 구현화면
 
 
-<img src="https://user-images.githubusercontent.com/77036027/158021187-33a01a4d-cf44-4be1-9ada-dc84e31cf37d.mp4">
+<img src="https://user-images.githubusercontent.com/77036027/158021262-d45ea823-6e8f-42d6-9429-6fbbc0523455.mp4">
 
 
 
