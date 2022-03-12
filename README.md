@@ -9,7 +9,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## 개발 기간
 
-2022.01-2022-03
+2022.01-2022.03
 
 ## 사용 기술
 
