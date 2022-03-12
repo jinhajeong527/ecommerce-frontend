@@ -3,7 +3,7 @@
 유데미의 https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/ 강좌를 보고 진행한 
 앵귤러 CLI 클론 프론트 엔드 코딩 프로젝트입니다.
 스프링부트 백엔드와 REST API를 통해 연결하였습니다.
-프로젝트 진행하면서 정리한 내용은 https://www.notion.so/augular-spring-webcommerce-course-ea1968e7559b4bfa8e86c820e5d7a5e2
+프로젝트 진행하면서 정리한 내용은 https://beautiful-microwave-06e.notion.site/augular-spring-webcommerce-course-ea1968e7559b4bfa8e86c820e5d7a5e2
 에서 확인하실 수 있습니다.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
