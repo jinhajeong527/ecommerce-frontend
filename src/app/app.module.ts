@@ -17,6 +17,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
+/* OktaAuth 사용하기 위한 설정 */
 import { OktaAuth } from '@okta/okta-auth-js';
 import {
   OKTA_CONFIG,
@@ -24,7 +25,6 @@ import {
   OktaCallbackComponent
 } from '@okta/okta-angular';
 import myAppConfig from './config/my-app-config';
-
 
 const routes: Routes = [
   { path: 'login/callback', component: OktaCallbackComponent},
@@ -38,8 +38,6 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailsComponent },
   //키워드로 제품 검색하기
   { path: 'search/:keyword', component: ProductListComponent },
- 
- 
   { path: 'category', component: ProductListComponent },
   { path: 'products', component: ProductListComponent },
   { path: '', redirectTo:'/products', pathMatch: 'full'},
@@ -78,7 +76,7 @@ const oktaAuth = new OktaAuth(oktaConfig);
     OktaAuthModule
   ],
   
-  providers: [ProductService,  { provide: OKTA_CONFIG, useValue: {oktaAuth} }],
-  bootstrap: [AppComponent]                            //can inject that given service by doing so
+  providers: [ProductService,  { provide: OKTA_CONFIG, useValue: {oktaAuth} }],  //can inject that given service by doing so
+  bootstrap: [AppComponent]                          
 })
 export class AppModule { }

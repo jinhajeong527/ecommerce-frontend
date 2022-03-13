@@ -1,21 +1,22 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
-        <h4>Category: {{ currentCategoryName }}</h4>
-        <hr>
         <div class="container-fluid">
             <div class="row">
+                <h4>Category: {{ currentCategoryName }}</h4>
+                <hr>
                 <!--loop over the collection of  products-->
                 <div *ngFor="let tempProduct of products" class="col-md-3">
                     <div class="product-box">
+                        
                         <a routerLink="/products/{{tempProduct.id}}">
                             <img src="{{tempProduct.imageUrl}}" />
                         </a>
+
                         <!--adding a link on both product image and product name-->
                         <a routerLink="/products/{{tempProduct.id}}">
                             <h1>{{ tempProduct.name }}</h1>
                         </a>
                        
-
                         <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
                         <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
                         <!--버튼에 부트스트랩 스타일 추가했다.-->
@@ -38,7 +39,8 @@
 
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-me-9" style="padding-left: 30%">
+                            <div class="col-md-9">
+
                                 <ngb-pagination [(page)]="thePageNumber"
                                                 [pageSize]="thePageSize"
                                                 [collectionSize]="theTotalElements"
@@ -46,6 +48,7 @@
                                                 [boundaryLinks]="true"
                                                 [maxSize]="5">
                                 </ngb-pagination>
+
                             </div>
                             <div class="col-md-3 mt-2" style="text-align: right;">
                                 <span calss="mr-2">Page Size</span>
