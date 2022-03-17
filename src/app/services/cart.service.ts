@@ -13,7 +13,25 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
-  constructor() {}
+  //Reference to web brower's session storage
+  //웹 브라우저의 탭이 닫히고 나면 데이터는 더이상 사용가능하지 않다. 
+  //브라우저를 다시 시작한 다음에도 쇼핑 카트 내역이 그대로 유지되기를 원한다면 localStorage를 사용하면 된다. 
+  //storage: Storage = sessionStorage;
+  storage: Storage = localStorage;
+
+  constructor() {
+
+      //storage에서 데이터 읽어온다. JSON 스트링 읽어서 오브젝트로 컨버트 해준다.
+      let data = JSON.parse(this.storage.getItem('cartItems'));
+
+      if(data != null) {
+        this.cartItems = data;
+
+        //compute totals based on the data that is read from storage
+        this.computeCartTotals();
+      }
+
+  }
 
   addToCart(theCartItem: CartItem){
     
@@ -62,7 +80,15 @@ export class CartService {
 
     //log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    //persist cart data
+    this.persistCartItems();
   }
+  persistCartItems() {
+      //JSON.stringify => 오브젝트를 JSON 스트링으로 변환해준다.
+      this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log(`Contents of the cart`);
     for(let tempCartItem of this.cartItems) {
