@@ -22,11 +22,14 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import {
   OKTA_CONFIG,
   OktaAuthModule,
-  OktaCallbackComponent
+  OktaCallbackComponent,
+  OktaAuthGuard
 } from '@okta/okta-angular';
 import myAppConfig from './config/my-app-config';
+import { MembersPageComponent } from './components/members-page/members-page.component';
 
 const routes: Routes = [
+  { path: 'members', component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},//if authenticated give access to route. else, send to login page
   { path: 'login/callback', component: OktaCallbackComponent},
   { path: 'login', component: LoginComponent},
    //제품 리스트 보여주는 화면에 카테고리 이름도 넣기 위해서 수정되었다.
@@ -45,7 +48,7 @@ const routes: Routes = [
 ];
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (injector) => {
+  onAuthRequired: (oktaAuth, injector) => {
     const router = injector.get(Router);
     // Redirect the user to your custom login page
     router.navigate(['/login']);
@@ -65,7 +68,8 @@ const oktaAuth = new OktaAuth(oktaConfig);
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    MembersPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),//**나중에 한번더 살펴보기
