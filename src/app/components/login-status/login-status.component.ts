@@ -12,6 +12,8 @@ export class LoginStatusComponent implements OnInit {
 
   isAuthenticated?: boolean = false;
   userFullName?: string;
+
+  storage: Storage = sessionStorage;
   //최신 버전 OktaAuth를 사용할 경우 아래와 같이 의존성 주입해주어야 한다.
   //OktaAuthService만 인젝트 해주면 안된다. 
   constructor(private oktaAuthService: OktaAuthStateService,
@@ -36,8 +38,14 @@ export class LoginStatusComponent implements OnInit {
       //
       // user full name is exposed as a property name
       this.oktaAuth.getUser().then(
-        (result) => {
+        (result) => { //user가 authenticated 되고나면 email 정보 받아온다.
           this.userFullName = result.name;
+          
+          //유저의 이메일 정보를 받아온다.
+          const theEmail = result.email;
+
+          //브라우저 스토리지에 이메일 저장한다.
+          this.storage.setItem('userEmail', JSON.stringify(theEmail));
         }
       );
     }

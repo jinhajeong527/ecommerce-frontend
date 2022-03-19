@@ -28,6 +28,8 @@ export class CheckoutComponent implements OnInit {
   shippingAddressStates: State[] =[];
   billingAddressStates: State[] =[];
 
+  storage: Storage = sessionStorage;
+
   creditCardYears: number[] =[];
   creditCardMonths: number[]=[];
 
@@ -41,6 +43,9 @@ export class CheckoutComponent implements OnInit {
 
     this.riviewCartDetails();
 
+    //read the user's eamil address from brower storage
+    const theEamil = JSON.parse(this.storage.getItem('userEmail'));
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', 
@@ -51,7 +56,7 @@ export class CheckoutComponent implements OnInit {
                                  [Validators.required, 
                                   Validators.minLength(2),
                                   MyShopValidators.notOnlyWhitespace]),
-        email:new FormControl('',
+        email:new FormControl(theEamil,
                               [Validators.required, 
                                Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
         }),

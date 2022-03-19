@@ -27,8 +27,10 @@ import {
 } from '@okta/okta-angular';
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 const routes: Routes = [
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [ OktaAuthGuard ]},
   { path: 'members', component: MembersPageComponent, canActivate: [ OktaAuthGuard ]},//if authenticated give access to route. else, send to login page
   { path: 'login/callback', component: OktaCallbackComponent},
   { path: 'login', component: LoginComponent},
@@ -69,7 +71,8 @@ const oktaAuth = new OktaAuth(oktaConfig);
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    MembersPageComponent
+    MembersPageComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),//**나중에 한번더 살펴보기
