@@ -27,11 +27,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Shpping Cart Form Validation
 * Shopping Cart Checkout
 * User Login/Logout Using Okta
+* VIP Member Access Page Using Protected Routes
+* Maintaining Shopping Cart Status After Refresh Using Web Storage
+* Order Hisotry View Page For Logged-In User Using Interceptor
 
 ## 구현화면
 
 
-![Hnet com-image](https://user-images.githubusercontent.com/77036027/158021511-cb850eac-4a8a-4922-b884-54018f9ec079.gif)
+![Hnet com-image (1)](https://user-images.githubusercontent.com/77036027/159155137-06b17324-3236-4591-9e29-108df1d3b9a7.gif)
 
 
 
