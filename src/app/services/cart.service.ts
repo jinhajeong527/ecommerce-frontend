@@ -17,7 +17,7 @@ export class CartService {
   //웹 브라우저의 탭이 닫히고 나면 데이터는 더이상 사용가능하지 않다. 
   //브라우저를 다시 시작한 다음에도 쇼핑 카트 내역이 그대로 유지되기를 원한다면 localStorage를 사용하면 된다. 
   //storage: Storage = sessionStorage;
-  storage: Storage = localStorage;
+  storage: Storage = sessionStorage;
 
   constructor() {
 

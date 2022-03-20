@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { Routes, RouterModule, Router} from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
@@ -25,9 +25,11 @@ import {
   OktaCallbackComponent,
   OktaAuthGuard
 } from '@okta/okta-angular';
+
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const routes: Routes = [
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [ OktaAuthGuard ]},
@@ -82,8 +84,11 @@ const oktaAuth = new OktaAuth(oktaConfig);
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  
-  providers: [ProductService,  { provide: OKTA_CONFIG, useValue: {oktaAuth} }],  //can inject that given service by doing so
+  //can inject that given service by doing so
+  providers: [ProductService,  { provide: OKTA_CONFIG, useValue: {oktaAuth} },
+    //Token for HTTP Interceptors, 우리가 작성한 AuthInterceptorService를 HTTP Interceptor로 등록한다.
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }], //one to many interceptor 가질 수 있으므로 multi : true로 설정하였다.
+  //informs Angular that HTTP_INTERCEPTORS is a token for injection an array of values
   bootstrap: [AppComponent]                          
 })
 export class AppModule { }
